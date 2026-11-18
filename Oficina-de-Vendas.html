@@ -2673,7 +2673,7 @@ window.OFICINA_GLOSSARIO = [
   }
   function pageLimit() {
     const end = main.querySelector(".pager") || main.querySelector(".article");
-    return Math.max(0, (end ? end.getBoundingClientRect().bottom + window.scrollY : main.offsetHeight) - window.innerHeight + bottomHeight + 36);
+    return Math.max(quizLimit(), (end ? end.getBoundingClientRect().bottom + window.scrollY : main.offsetHeight) - window.innerHeight + bottomHeight + 36);
   }
   function progress() {
     if (!opened || !lessonId) return;
