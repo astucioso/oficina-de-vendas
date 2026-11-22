@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Preços, custos e margem por pedido da DURVEX. Compare o catálogo e simule cenários sem alterar os cadastros da operação.">
+  <title>DURVEX · A conta de cada venda</title>
+  <link rel="stylesheet" href="./financeiro.css">
+  <script defer src="./dados.js"></script>
+  <script defer src="./modelo.js"></script>
+  <script defer src="./app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#catalogo">Ir para os produtos</a>
+  <header class="topbar wrap">
+    <a class="wordmark" href="./" aria-label="DURVEX, início do financeiro"><svg aria-hidden="true" viewBox="0 0 64 24"><path d="M2 12h60M25 3v18m7-18v18m7-18v18"/></svg>DURVEX<span>FINANCEIRO</span></a>
+    <nav aria-label="Navegação"><a href="#catalogo">Produtos</a><a href="#analise">Abrir a conta</a><a href="../">Estudo da operação</a></nav>
+  </header>
+  <main class="wrap">
+    <section class="hero" aria-labelledby="title">
+      <div class="hero-copy"><p class="eyebrow">PLANO COMERCIAL · 22 NOV 2026</p><h1 id="title">Cada venda.<br><span>A conta aberta.</span></h1><p class="lead">Do custo da madeira ao que sobra no pedido. Os preços e as premissas da DURVEX reunidos para decidir e apresentar.</p><div class="hero-actions"><a class="button primary" href="#catalogo">Explorar os produtos</a><button class="button" id="print" type="button">Imprimir apresentação</button></div><p class="launch-state" id="launchState">Situação dos anúncios conforme a última conferência da operação.</p><p class="price-state" id="priceState"></p></div>
+      <div class="featured" id="featured" aria-label="Resumo do produto selecionado"></div>
+    </section>
+    <section class="metrics" id="metrics" aria-label="Visão geral do catálogo"></section>
+    <section id="catalogo" class="section-block" aria-labelledby="catalog-title">
+      <div class="section-heading"><div><p class="eyebrow">CATÁLOGO DO LANÇAMENTO</p><h2 id="catalog-title">Escolha o produto.<br>Veja o que fica.</h2></div><button class="button" type="button" id="export">Exportar todos os custos · CSV</button></div>
+      <div class="toolbar"><label class="search-field"><span>Buscar produto ou SKU</span><input type="search" id="search" placeholder="Ex.: cedrinho, kit, 315" autocomplete="off"></label><label><span>Família</span><select id="family"><option value="all">Todas as famílias</option><option value="cabos">Cabos</option><option value="desempenadeiras">Desempenadeiras</option><option value="tabuas">Tábuas</option></select></label><label><span>Formato</span><select id="kind"><option value="all">Avulsos e kits</option><option value="avulso">Avulsos</option><option value="kit2">Kits com 2</option><option value="kit3">Kits com 3</option></select></label><label><span>Ordenar por</span><select id="sort"><option value="sku">Ordem do catálogo</option><option value="profit-desc">Maior sobra por pedido</option><option value="margin-desc">Maior margem</option><option value="price-asc">Menor preço</option><option value="price-desc">Maior preço</option></select></label></div>
+      <div class="list-caption"><p id="results" role="status"></p><p>Sobra após os custos informados. Valores por pedido.</p></div>
+      <div class="table-wrap"><table class="product-table"><thead><tr><th scope="col">Produto</th><th scope="col">Venda</th><th scope="col">Custo físico</th><th scope="col">Venda e tributos</th><th scope="col">Sobra</th><th scope="col">Margem</th><th scope="col"><span class="sr-only">Ação</span></th></tr></thead><tbody id="productRows"></tbody></table><p class="empty" id="empty" hidden>Nenhum produto com esses filtros. Tente outra busca.</p></div>
+    </section>
+    <section id="analise" class="section-block analysis" aria-labelledby="analysis-title">
+      <div class="section-heading"><div><p class="eyebrow">POR DENTRO DO PREÇO</p><h2 id="analysis-title">De onde vem a sobra.</h2></div><div class="segmented" role="group" aria-label="Base dos valores"><button id="basis-order" type="button" aria-pressed="true" data-basis="pedido">Por pedido</button><button id="basis-unit" type="button" aria-pressed="false" data-basis="peca">Por peça</button></div></div>
+      <div class="analysis-grid"><div class="account-panel"><div id="productAnalysis"></div></div><aside class="scenario-panel" aria-labelledby="scenario-title"><div class="scenario-head"><p class="eyebrow">SIMULAÇÃO LOCAL</p><h3 id="scenario-title">E se mudar?</h3><p>Teste os valores deste produto. As alterações ficam só neste navegador e não mudam o Bling ou o Mercado Livre.</p></div><form id="scenarioForm" novalidate><div class="field-grid" id="scenarioFields"></div><p class="form-message" id="formMessage" role="status"></p><button type="button" class="button full" id="resetProduct">Voltar à base deste produto</button></form><p class="scenario-foot">Matéria-prima, mão de obra e embalagem são o total do pedido. Gestão é cobrada uma vez por pedido.</p></aside></div>
+    </section>
+    <section class="section-block assumptions" aria-labelledby="premissas-title"><div><p class="eyebrow">COMO LER OS NÚMEROS</p><h2 id="premissas-title">Uma operação.<br>Premissas visíveis.</h2><p class="lead small-lead">A sobra calculada aqui é o saldo do pedido após os custos listados. Despesas gerais da empresa, publicidade, devoluções e perdas ainda não foram descontadas.</p></div><div class="notes-grid"><article><h3>O custo físico</h3><p>Matéria-prima + R$ 2,00 de mão de obra por peça + R$ 1,00 de embalagem por peça. O kit soma seus componentes, sem criar um estoque independente.</p></article><article><h3>As despesas da venda</h3><p>Gestão de R$ 1,50 por pedido, Simples de 6% no cenário informado e comissão Clássico de 12% nas ferramentas ou 11,5% na tábua. As taxas percentuais incidem sobre o preço usado no cálculo.</p></article><article><h3>O custo operacional do ML</h3><p id="operationalNote">R$ 7,15 nos itens leves e kits; R$ 9,75 na tábua. São valores do cenário de precificação, não uma cotação do anúncio em tempo real. Não foi somada outra tarifa fixa histórica por fora.</p></article><article><h3>Peso e faixa tarifária</h3><p>Cabos: 300 g por peça. Desempenadeiras: 400 g. Tábua: 3,5 kg. Kits: 650 g ou 950 g com 50 g de embalagem estimada. O pacote pronto e o peso volumétrico precisam ser conferidos.</p></article></div></section>
+    <section class="scope-note"><div><strong>Fora do lançamento</strong><p>Cabos de cavadeira e enxada de 1,75 m · SKUs 325 e 330. Não entram nos preços nem nas margens deste painel.</p></div><div><strong>Conferência dos valores</strong><p id="feeCheckNote">Substituir as premissas de comissão e Envios pelos valores efetivamente mostrados em cada anúncio. A base dos avulsos leves mantém a faixa conservadora de 0,5 a 1 kg.</p></div></section>
+    <section class="print-only"><h2>Custos completos por pedido</h2><p id="printSubtitle"></p><div id="printTable"></div><p>Simples 6% é premissa da operação. Comissões e custo operacional dependem da categoria, preço, peso e modalidade reais. Sobra antes de despesas gerais, Ads, devoluções e perdas. Sem projeção de volume de vendas.</p></section>
+    <footer class="footer"><div class="wordmark">DURVEX <span>A CONTA DE CADA VENDA</span></div><p>Base comercial de 22/11/2026 · BRL · Simulações salvas neste aparelho</p><div><a href="https://www.mercadolivre.com.br/ajuda/custos-envio-reputacao-verde-sem-reputacao_48392" target="_blank" rel="noopener noreferrer">Referência de custos de Envios</a><button type="button" id="resetAll">Limpar todas as simulações</button></div></footer>
+  </main>
+  <div class="toast" id="toast" role="status"></div>
+  <noscript><p class="noscript">Ative o JavaScript para explorar a conta dos produtos. A base também está disponível em <a href="./dados.json">dados.json</a>.</p></noscript>
+</body>
+</html>
