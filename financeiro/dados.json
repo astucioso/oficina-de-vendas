@@ -9,8 +9,8 @@
   "products": [
     {
       "sku": "315",
-      "name": "Cabo Para Martelo Cumaru 45cm Madeira",
-      "material": "Madeira cumaru",
+      "name": "Cabo Para Martelo Madeira Nobre 45cm",
+      "material": "Madeira nobre de cumaru",
       "family": "cabos",
       "kind": "avulso",
       "quantity": 1,
@@ -39,8 +39,8 @@
     },
     {
       "sku": "320",
-      "name": "Cabo Para Marreta Cumaru 35cm Madeira",
-      "material": "Madeira cumaru",
+      "name": "Cabo Para Marreta Madeira Nobre 35cm",
+      "material": "Madeira nobre de cumaru",
       "family": "cabos",
       "kind": "avulso",
       "quantity": 1,
@@ -275,8 +275,8 @@
     },
     {
       "sku": "355",
-      "name": "Tábua De Carne Churrasco Cumaru 45x30x2,5cm",
-      "material": "Madeira cumaru",
+      "name": "Tábua De Carne Churrasco Madeira Nobre 45x30x2,5cm",
+      "material": "Madeira nobre de cumaru",
       "family": "tabuas",
       "kind": "avulso",
       "quantity": 1,
@@ -305,8 +305,8 @@
     },
     {
       "sku": "360",
-      "name": "Kit 2 Cabos Para Martelo Cumaru 45cm Madeira",
-      "material": "Madeira cumaru",
+      "name": "Kit 2 Cabos Para Martelo Madeira Nobre 45cm",
+      "material": "Madeira nobre de cumaru",
       "family": "cabos",
       "kind": "kit2",
       "quantity": 2,
@@ -335,8 +335,8 @@
     },
     {
       "sku": "365",
-      "name": "Kit 2 Cabos Para Marreta Cumaru 35cm Madeira",
-      "material": "Madeira cumaru",
+      "name": "Kit 2 Cabos Para Marreta Madeira Nobre 35cm",
+      "material": "Madeira nobre de cumaru",
       "family": "cabos",
       "kind": "kit2",
       "quantity": 2,
@@ -365,8 +365,8 @@
     },
     {
       "sku": "370",
-      "name": "Kit 3 Cabos Para Martelo Cumaru 45cm Madeira",
-      "material": "Madeira cumaru",
+      "name": "Kit 3 Cabos Para Martelo Madeira Nobre 45cm",
+      "material": "Madeira nobre de cumaru",
       "family": "cabos",
       "kind": "kit3",
       "quantity": 3,
@@ -395,8 +395,8 @@
     },
     {
       "sku": "375",
-      "name": "Kit 3 Cabos Para Marreta Cumaru 35cm Madeira",
-      "material": "Madeira cumaru",
+      "name": "Kit 3 Cabos Para Marreta Madeira Nobre 35cm",
+      "material": "Madeira nobre de cumaru",
       "family": "cabos",
       "kind": "kit3",
       "quantity": 3,
