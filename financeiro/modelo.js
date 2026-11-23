@@ -39,6 +39,31 @@
     const n = Number(text), max = rateFields.includes(key) ? 100 : 1000000;
     return Number.isFinite(n) && n >= 0 && n <= max ? money(n) : null;
   }
+  function loadScenarios(saved, revision, skus) {
+    const allowed = new Set(skus), fields = [...moneyFields, ...rateFields];
+    const sanitize = raw => {
+      const result = {};
+      if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return result;
+      for (const [sku, values] of Object.entries(raw)) {
+        if (!allowed.has(sku) || !values || typeof values !== 'object' || Array.isArray(values)) continue;
+        const clean = {};
+        for (const [key, value] of Object.entries(values)) {
+          const parsed = fields.includes(key) ? parseInput(value, key) : null;
+          if (parsed != null) clean[key] = parsed;
+        }
+        if (Object.keys(clean).length) result[sku] = clean;
+      }
+      return result;
+    };
+    const archived = new Map();
+    for (const entry of Array.isArray(saved?.archivedScenarios) ? saved.archivedScenarios : []) {
+      const overrides = sanitize(entry?.overrides);
+      if (typeof entry?.revision === 'string' && Object.keys(overrides).length) archived.set(entry.revision, {revision:entry.revision, overrides});
+    }
+    const previous = sanitize(saved?.overrides), oldRevision = Boolean(saved && saved.revision !== revision && Object.keys(previous).length);
+    if (oldRevision) archived.set(String(saved.revision || 'base-anterior'), {revision:String(saved.revision || 'base-anterior'), overrides:previous});
+    return {overrides:saved?.revision === revision ? previous : {}, archivedScenarios:[...archived.values()], oldRevision};
+  }
   function csv(products) {
     const columns = ['SKU','Produto','Peças por pedido','Preço pedido','Preço por peça','Matéria-prima total','Mão de obra total','Embalagem total','Custo físico','Gestão por pedido','Comissão ML %','Comissão ML R$','Simples %','Simples R$','Operacional ML','Custo total informado','Sobra por pedido','Margem %','Cenário','Preço ML observado','Ajuste ML pendente'];
     const br = v => Number(v).toFixed(2).replace('.', ',');
@@ -49,7 +74,7 @@
     });
     return '\uFEFF' + [columns.map(quote).join(';'),...lines].join('\r\n');
   }
-  const api = Object.freeze({cents, money, calculate, targetPrice, warnings, parseInput, csv, moneyFields, rateFields, fields:[...moneyFields,...rateFields]});
+  const api = Object.freeze({cents, money, calculate, targetPrice, warnings, parseInput, loadScenarios, csv, moneyFields, rateFields, fields:[...moneyFields,...rateFields]});
   root.DurvexModel = api;
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this);
