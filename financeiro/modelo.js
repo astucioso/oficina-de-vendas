@@ -28,7 +28,7 @@
     const messages = [];
     if (cents(p.price) < cents(p.tariffPriceMin) || cents(p.price) > cents(p.tariffPriceMax)) messages.push('Preço fora da faixa tarifária da base. O operacional foi mantido manualmente; confira uma nova cotação no Mercado Livre.');
     if (Number(p.taxRate) + Number(p.commissionRate) >= 100) messages.push('A soma das taxas percentuais chegou a 100% ou mais. Não existe preço de equilíbrio com estes custos.');
-    if (p.quantity === 3) messages.push('Peso bruto estimado: 950 g. Há só 50 g de folga até 1 kg; conferir pacote pronto e peso volumétrico.');
+    if (p.quantity === 3 && p.estimatedGrossKg === 0.95) messages.push('Peso bruto estimado: 950 g. Há só 50 g de folga até 1 kg; conferir pacote pronto e peso volumétrico.');
     return messages;
   }
   function parseInput(value, key) {
